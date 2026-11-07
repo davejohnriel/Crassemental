@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#08110c" />
+  <title>Grass Cutter — an idle lawn game</title>
+  <meta name="description" content="A cozy incremental game about cutting grass. Buy mowers, hire goats and reseed the lawn for permanent bonuses." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%3E%3Ctext%20y='.9em'%20font-size='90'%3E%F0%9F%8C%B1%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <span class="logo" aria-hidden="true">🌱</span>
+        <div class="brand-text">
+          <h1>Grass Cutter</h1>
+          <p class="tagline">The lawn never stops growing.</p>
+        </div>
+      </div>
+
+      <div class="hud">
+        <div class="hud-count"><span id="grass-amount">0</span><span class="unit">grass</span></div>
+        <div class="hud-rate">
+          <span id="rate-line">0/sec</span>
+          <span class="dot" aria-hidden="true">·</span>
+          <span id="click-line">1 per cut</span>
+        </div>
+      </div>
+
+      <div class="fert-pill" id="fert-pill" hidden>
+        <span aria-hidden="true">🧪</span><b id="fert-amount">0</b><small>fertilizer</small>
+      </div>
+    </header>
+
+    <main class="layout">
+      <section class="lawn" id="lawn" tabindex="0" role="button" aria-label="Cut the grass">
+        <div class="lawn-stripes" aria-hidden="true"></div>
+        <div class="tufts" id="tufts" aria-hidden="true"></div>
+
+        <div class="lawn-center" aria-hidden="true">
+          <div class="lawn-icon">✂️</div>
+          <p class="lawn-title">Cut the grass</p>
+          <p class="lawn-hint">Click anywhere on the lawn · or press Space</p>
+        </div>
+
+        <button class="golden" id="golden" type="button" hidden aria-label="Golden grass — click it for a boost">🌾</button>
+
+        <div class="boost" id="boost" hidden>
+          <span aria-hidden="true">🍀</span>
+          <b id="boost-mult">×7</b>
+          <span id="boost-time">20s</span>
+        </div>
+
+        <div class="floaters" id="floaters" aria-hidden="true"></div>
+      </section>
+
+      <section class="panel">
+        <nav class="tabs" id="tabs" aria-label="Sections">
+          <button class="tab is-active" data-tab="cutters" type="button">Cutters</button>
+          <button class="tab" data-tab="upgrades" type="button">Upgrades <span class="badge" id="upg-badge" hidden>0</span></button>
+          <button class="tab" data-tab="prestige" type="button">Reseed <span class="badge gold" id="pres-badge" hidden>!</span></button>
+          <button class="tab" data-tab="stats" type="button">Stats</button>
+        </nav>
+        <div class="pane" id="pane"></div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <span>Autosaves in this browser · <span id="save-note">ready</span></span>
+    </footer>
+  </div>
+
+  <div class="toasts" id="toasts" aria-live="polite"></div>
+
+  <div class="modal-backdrop" id="modal" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <h2 id="modal-title">Title</h2>
+      <div class="modal-body" id="modal-body"></div>
+      <div class="modal-actions">
+        <button class="btn ghost" id="modal-cancel" type="button">Cancel</button>
+        <button class="btn primary" id="modal-ok" type="button">OK</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>
